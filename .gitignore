@@ -36,3 +36,4 @@ replay_pid*
 /.gradle/buildOutputCleanup/
 
 *.hprof
+/build/test-results/
