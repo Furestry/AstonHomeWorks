@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SevlerArrayListTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-07-26T01:07:35" hostname="SEVLERCOMP" time="87.183">
+  <properties/>
+  <testcase name="testRemoveByObject()" classname="SevlerArrayListTest" time="3.919"/>
+  <testcase name="testAdd()" classname="SevlerArrayListTest" time="0.016"/>
+  <testcase name="testGet()" classname="SevlerArrayListTest" time="0.035"/>
+  <testcase name="testSet()" classname="SevlerArrayListTest" time="0.023"/>
+  <testcase name="testClear()" classname="SevlerArrayListTest" time="0.018"/>
+  <testcase name="testEmpty()" classname="SevlerArrayListTest" time="0.007"/>
+  <testcase name="testSort()" classname="SevlerArrayListTest" time="0.594"/>
+  <testcase name="testRemoveByIndex()" classname="SevlerArrayListTest" time="8.165"/>
+  <testcase name="ourListEqualsValidList()" classname="SevlerArrayListTest" time="0.045"/>
+  <testcase name="testContains()" classname="SevlerArrayListTest" time="16.862"/>
+  <testcase name="testAddAll()" classname="SevlerArrayListTest" time="0.054"/>
+  <testcase name="testAddByIndex()" classname="SevlerArrayListTest" time="57.437"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
