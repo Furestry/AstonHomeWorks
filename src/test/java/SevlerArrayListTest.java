@@ -60,14 +60,12 @@ public class SevlerArrayListTest {
             removeIndexes.add(randInt);
         }
 
-        System.out.println(removeIndexes);
-
         removeIndexes.forEach(e -> {
             ourList.remove(e.intValue());
             validList.remove(e.intValue());
         });
 
-        //Assertions.assertEquals(validList, ourList);
+        Assertions.assertEquals(validList, ourList);
     }
 
     @Test
