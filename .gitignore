@@ -22,9 +22,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-/private.pgp
 /privateArmor.pgp
-/public.pgp
 /publicArmor.pgp
+/build/jreleaser*
+/build/reports*
+/build/tests*
+/build/tmp*
+/build/staging-deploy*
+/build/publication*
+/.gradle/8.5/checksums*
 
 *.hprof
