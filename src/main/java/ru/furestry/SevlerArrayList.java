@@ -117,10 +117,8 @@ public class SevlerArrayList<E> extends AbstractList<E>
 
     @Override
     public void clear() {
-        Object[] copy = elementData;
-
         for (int i = size - 1; i >= 0; i--) {
-            copy[i] = null;
+            elementData[i] = null;
         }
 
         size = 0;
@@ -220,17 +218,15 @@ public class SevlerArrayList<E> extends AbstractList<E>
     }
 
     private int indexOfRange(Object o, int start, int end) {
-        Object[] copy = elementData;
-
         if (o == null) {
             for (int i = start; i < end; i++) {
-                if (copy[i] == null) {
+                if (elementData[i] == null) {
                     return i;
                 }
             }
         } else {
             for (int i = start; i < end; i++) {
-                if (o.equals(copy[i])) {
+                if (o.equals(elementData[i])) {
                     return i;
                 }
             }
@@ -239,17 +235,15 @@ public class SevlerArrayList<E> extends AbstractList<E>
     }
 
     private int lastIndexOfRange(Object o, int start, int end) {
-        Object[] copy = elementData;
-
         if (o == null) {
             for (int i = end - 1; i >= start; i--) {
-                if (copy[i] == null) {
+                if (elementData[i] == null) {
                     return i;
                 }
             }
         } else {
             for (int i = end - 1; i >= start; i--) {
-                if (o.equals(copy[i])) {
+                if (o.equals(elementData[i])) {
                     return i;
                 }
             }
