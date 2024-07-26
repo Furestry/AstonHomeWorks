@@ -27,9 +27,6 @@ dependencies {
 ### В классе реализованы методы:
 
 ```java
-import java.util.Collection;
-import java.util.Iterator;
-
 int getSize();
 
 boolean isEmpty();
