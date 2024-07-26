@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation("ru.furestry:SevlerArrayList:1.0.0") {
+    implementation("ru.furestry:SevlerArrayList:1.0.1") {
     }
 }
 ```
@@ -19,7 +19,7 @@ dependencies {
 <dependency>
     <groupId>ru.furestry</groupId>
     <artifactId>SevlerArrayList</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 

@@ -24,12 +24,15 @@ hs_err_pid*
 replay_pid*
 /privateArmor.pgp
 /publicArmor.pgp
-/build/jreleaser*
-/build/reports*
-/build/tests*
-/build/tmp*
-/build/staging-deploy*
-/build/publication*
-/.gradle/8.5/checksums*
+/build/jreleaser/
+/build/reports/
+/build/tests/
+/build/tmp/
+/build/staging-deploy/
+/build/publication/
+/.gradle/8.5/checksums/
+/.gradle/8.5/fileHashes/
+/.gradle/8.5/executionHistory/
+/.gradle/buildOutputCleanup/
 
 *.hprof
