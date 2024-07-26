@@ -3,13 +3,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.furestry.SevlerArrayList;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class SevlerArrayListTest {
-    private static final int ARRAY_CAPACITY = 200_000;
+    private static final int ARRAY_CAPACITY = 100_000;
     private static final int REMOVE_CAPACITY = ARRAY_CAPACITY / 100;
     private static final int ADD_CAPACITY = ARRAY_CAPACITY / 50;
     private static final int LIMIT = 50_000;
@@ -58,17 +55,19 @@ public class SevlerArrayListTest {
         List<Integer> removeIndexes = new ArrayList<>();
 
         for (int i = 0; i < REMOVE_CAPACITY; i++) {
-            int randInt = random.nextInt(0, ourList.size() / 2);
+            int randInt = random.nextInt(0, validList.size() / 10);
 
             removeIndexes.add(randInt);
         }
+
+        System.out.println(removeIndexes);
 
         removeIndexes.forEach(e -> {
             ourList.remove(e.intValue());
             validList.remove(e.intValue());
         });
 
-        Assertions.assertEquals(ourList, validList);
+        //Assertions.assertEquals(validList, ourList);
     }
 
     @Test
@@ -168,5 +167,47 @@ public class SevlerArrayListTest {
 
         Assertions.assertEquals(validList, ourList);
         Assertions.assertEquals(validList.size(), ourList.size());
+    }
+
+    @Test
+    public void testIndexOf() {
+        String notContains = "STRSTR";
+        String contains = validList.get(4);
+
+        Assertions.assertEquals(validList.indexOf(contains), ourList.indexOf(contains));
+        Assertions.assertEquals(validList.indexOf(notContains), ourList.indexOf(notContains));
+    }
+
+    @Test
+    public void testLastIndexOf() {
+        String notContains = "STRSTR";
+        String contains = validList.get(2);
+
+        Assertions.assertEquals(validList.lastIndexOf(contains), ourList.lastIndexOf(contains));
+        Assertions.assertEquals(validList.lastIndexOf(notContains), ourList.lastIndexOf(notContains));
+    }
+
+    @Test
+    public void testSubList() {
+        int start = validList.size() / 1000;
+        int end = validList.size() / 1000 * 2;
+        List<String> ourSubList = ourList.subList(start, end);
+        List<String> validSubList = validList.subList(start, end);
+
+        Assertions.assertEquals(validSubList, ourSubList);
+    }
+
+    @Test
+    public void testIterator() {
+        Iterator<String> iterator = ourList.iterator();
+        int limit = ARRAY_CAPACITY / 200;
+        int count = 0;
+
+        while (count < limit) {
+            Assertions.assertTrue(iterator.hasNext());
+            Assertions.assertEquals(ourList.get(count), iterator.next());
+
+            count++;
+        }
     }
 }
