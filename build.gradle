@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'org.jreleaser' version '1.13.1'
 }
 
 group = 'ru.furestry'
-version = '1.0-SNAPSHOT'
+version = '1.0.1'
 
 repositories {
     mavenCentral()
@@ -16,4 +18,73 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'ru.furestry'
+            artifactId = 'SevlerArrayList'
+
+            from components.java
+
+            pom {
+                name = 'SevlerArrayList'
+                description = 'Custom ArrayList'
+                url = 'https://github.com/Furestry/AstonHomeWorks'
+                inceptionYear = '2024'
+                licenses {
+                    license {
+                        name = 'Apache-2.0'
+                        url = 'https://spdx.org/licenses/Apache-2.0.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'furestry'
+                        name = 'Vadim'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/Furestry/AstonHomeWorks.git'
+                    developerConnection = 'scm:git:ssh://github.com/Furestry/AstonHomeWorks.git'
+                    url = 'http://github.com/Furestry/AstonHomeWorks'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+jreleaser {
+    signing {
+        active = 'ALWAYS'
+        armored = true
+        publicKey = projectDir.toString() + '/publicArmor.pgp'
+        secretKey = projectDir.toString() + '/privateArmor.pgp'
+        mode = 'FILE'
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    username = mavenUsername
+                    password = mavenPassword
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                }
+            }
+        }
+    }
 }
