@@ -8,8 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation("ru.furestry:SevlerArrayList:1.0.1") {
-    }
+    implementation 'ru.furestry:SevlerArrayList:1.0.1'
 }
 ```
 
