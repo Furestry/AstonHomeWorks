@@ -78,35 +78,6 @@ public class SevlerArrayList<E> extends AbstractList<E>
     }
 
     @Override
-    public boolean remove(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (o.equals(elementData[i])) {
-                elementData[i] = null;
-
-                if (i != size - 1) {
-                    Object[] cleanArray = new Object[size];
-
-                    for (int j = 0, c = 0; j < size; j++) {
-                        if (elementData[j] != null) {
-                            cleanArray[c] = elementData[j];
-
-                            c += 1;
-                        }
-                    }
-
-                    elementData = cleanArray;
-                }
-
-                size -= 1;
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
     public boolean containsAll(Collection<?> c) {
         return false;
     }
@@ -204,43 +175,86 @@ public class SevlerArrayList<E> extends AbstractList<E>
         checkIndex(index);
 
         Object old = elementData[index];
-
-        if (index == (size - 1)) {
-            elementData[index] = null;
-            size -= 1;
-        } else {
-            remove(old);
-        }
+        remove(old);
 
         return (E) old;
     }
 
     @Override
-    public int indexOf(Object o) {
-        int index = -1;
+    public boolean remove(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(elementData[i])) {
+                elementData[i] = null;
 
-        if (o == null) {
-            for (int i = 0; i < size; i++) {
-                if (elementData[i] == null) {
-                    index = i;
-                    break;
+                if ((size - 1) > i) {
+                    Object[] cleanArray = new Object[size];
+
+                    for (int j = 0, c = 0; j < size; j++) {
+                        if (elementData[j] != null) {
+                            cleanArray[c] = elementData[j];
+
+                            c += 1;
+                        }
+                    }
+
+                    elementData = cleanArray;
                 }
-            }
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (o.equals(elementData[i])) {
-                   index = i;
-                   break;
-                }
+
+                size -= 1;
+
+                return true;
             }
         }
 
-        return index;
+        return false;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return indexOfRange(o, 0, size);
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return indexOf(o);
+        return lastIndexOfRange(o, 0, size);
+    }
+
+    private int indexOfRange(Object o, int start, int end) {
+        Object[] copy = elementData;
+
+        if (o == null) {
+            for (int i = start; i < end; i++) {
+                if (copy[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = start; i < end; i++) {
+                if (o.equals(copy[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private int lastIndexOfRange(Object o, int start, int end) {
+        Object[] copy = elementData;
+
+        if (o == null) {
+            for (int i = end - 1; i >= start; i--) {
+                if (copy[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = end - 1; i >= start; i--) {
+                if (o.equals(copy[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -266,8 +280,8 @@ public class SevlerArrayList<E> extends AbstractList<E>
 
         Object[] subList = new Object[toIndex - fromIndex];
 
-        for (int f = fromIndex, s = 0; f <= toIndex; f++, s++) {
-            subList[s] = elementData[s];
+        for (int f = fromIndex, s = 0; f < toIndex; f++, s++) {
+            subList[s] = elementData[f];
         }
 
         return Arrays.asList((E[]) subList);
@@ -333,13 +347,13 @@ public class SevlerArrayList<E> extends AbstractList<E>
         elementData[j] = temp;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public SevlerArrayList<E> clone() {
+    public Object clone() {
         try {
-            return (SevlerArrayList<E>) super.clone();
+            SevlerArrayList<?> v = (SevlerArrayList<?>) super.clone();
+            v.elementData = Arrays.copyOf(elementData, size);
+            return v;
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            throw new InternalError();
         }
     }
 
@@ -364,6 +378,7 @@ public class SevlerArrayList<E> extends AbstractList<E>
         @SuppressWarnings("unchecked")
         public E next() {
             int i = cursor;
+
             if (i >= size) {
                 return null;
             }
